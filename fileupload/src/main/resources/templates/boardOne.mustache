@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 상세보기</title>
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .card {
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .file-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .file-link a {
+      text-decoration: none;
+      color: #0d6efd;
+    }
+
+    .file-link a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-area a {
+      margin-right: 10px;
+    }
+
+    .msg-box {
+      background-color: #fff3cd;
+      padding: 10px 20px;
+      border-left: 5px solid #ffc107;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="text-center text-primary mb-4">📄 게시글 상세보기</h2>
+
+  {{#msg}}
+  <div class="msg-box">
+    {{msg}}
+  </div>
+  {{/msg}}
+
+  <!-- 게시글 정보 카드 -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">글 번호: <span class="text-muted">{{boardMapping.bno}}</span></h5>
+      <p class="card-text">제목: <strong>{{boardMapping.title}}</strong></p>
+    </div>
+  </div>
+
+  <!-- 수정 / 삭제 버튼 -->
+  <div class="btn-area mb-4">
+    <a href="/boardModify?bno={{boardMapping.bno}}" class="btn btn-outline-secondary">✏️ 수정</a>
+    <a href="/boardDelete?bno={{boardMapping.bno}}" class="btn btn-outline-danger">🗑 삭제</a>
+  </div>
+
+  <!-- 첨부파일 -->
+  <div class="card">
+    <div class="card-header bg-light fw-bold">📎 첨부파일</div>
+    <div class="card-body">
+      {{#fileList}}
+      <div class="file-link mb-2">
+        <div>
+          <a href="/upload/{{fname}}" download="{{foriginname}}">{{foriginname}}</a>
+        </div>
+        <div>
+          <a href="/removeBoardfile?fno={{fno}}&bno={{bno}}" class="text-danger">[삭제]</a>
+        </div>
+      </div>
+      {{/fileList}}
+      {{^fileList}}
+      <p class="text-muted">첨부파일이 없습니다.</p>
+      {{/fileList}}
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
