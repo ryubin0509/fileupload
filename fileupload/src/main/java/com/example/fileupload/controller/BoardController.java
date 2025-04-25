@@ -52,11 +52,12 @@ public class BoardController {
 	
 	@GetMapping("/boardDelete")
 	public String deleteBoard(@RequestParam(value ="bno")int bno ,Model model, RedirectAttributes rda) {
-		rda.addFlashAttribute("bno", bno);
+		rda.addAttribute("bno", bno);
 		
 		if(boardfileRepository.existsByBno(bno)) {
 			rda.addFlashAttribute("msg", "파일이 있습니다.");	
-			return "redirect:boardOne";
+			
+			return "redirect:/boardOne?bno=" + bno;
 		} else { // 파일이 없을 경우
 			model.addAttribute("bno", bno);
 		    return "delete";
@@ -121,13 +122,14 @@ public class BoardController {
 		model.addAttribute("word", word);
 		model.addAttribute("nextPage",currentPage+1);
 		model.addAttribute("prevPage",currentPage-1);
+	    model.addAttribute("currentPage", currentPage);
 		
 		return "boardList"; 
 	}
 	
 	
 	// 입력폼 
-	@GetMapping("/")
+	@GetMapping("/addBoard")
 	public String addBoard() {
 		return "/addBoard";
 	}

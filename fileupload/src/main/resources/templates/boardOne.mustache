@@ -58,7 +58,7 @@
     {{msg}}
   </div>
   {{/msg}}
-
+ {{#boardMapping}}
   <!-- 게시글 정보 카드 -->
   <div class="card mb-4">
     <div class="card-body">
@@ -72,7 +72,7 @@
     <a href="/boardModify?bno={{boardMapping.bno}}" class="btn btn-outline-secondary">✏️ 수정</a>
     <a href="/boardDelete?bno={{boardMapping.bno}}" class="btn btn-outline-danger">🗑 삭제</a>
   </div>
-
+{{/boardMapping}}
   <!-- 첨부파일 -->
   <div class="card">
     <div class="card-header bg-light fw-bold">📎 첨부파일</div>
